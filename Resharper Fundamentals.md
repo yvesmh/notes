@@ -236,3 +236,129 @@ Commenting a line brings the cursor to the next line so it's easy to comment one
 * Parameter Analysis
 * Solution wide analysis
 
+# Micro Code Generation & Templating
+
+//TODO add Code generation notes taken at home
+
+## File Templates
+
+* Create file from a template - `Ctrl-alt-insert`
+
+Create new template by going to Menu Resharper -> Tools -> Templates explorer
+
+Can add identifiers that user will tab through
+
+
+## Live Templates
+
+* Insert Live Template - `Ctrl-E,L`
+* Create Live Template - `Alt-R,T,R`
+
+Resharper is smart about foreaches. It uses the last IEnumerable declared or accessed
+It is also smart about switches. It uses the last Enum.
+
+
+## Surround Templates
+
+* Insert Surround Template - `Ctrl-E,U`
+
+`$SELECTION$` is whatever was selected
+`$SELSTART$` 
+`$SELEND$` when we go back to VS that line is highlighted
+
+## Managing Templates
+
+User defined templates are stored in 
+
+`Users\AppData\Roaming\JetBrains\Resharper\vNumber\vsNumber\UserSettings.xml`
+
+Can share settings on a per user, per solution or per project basis.
+Can be exported.
+
+# Grab Bag of Useful Extras
+
+## Stack Trace Explorer
+
+* Explore stack trace - `Ctrl-E,T`
+
+Resharper parses the stack trace and provides with quick links to code
+
+## Metadata viewer & symbol browsing
+
+Lets us navigate through .NET docs
+
+If not available, it will create a metadata view of the code
+
+## To-do list explorer
+
+Lets us view bugs, NotImplemented, Notes and todos with links to code
+
+Lets us define new pattern or filters
+
+## Test Runner
+
+Can run NUnit and MSTest, and extensions to run other frameworks
+
+* Run all tests - `Alt-R,U,N`
+* Run tests in context - `Alt-R,U,R`
+* Run Tests in Current Session - `Alt-R,U,C`
+
+## Globalization
+
+* Move to Resource
+* Rename Resource
+* Inline resource
+* Safe delete resource
+
+All available through Refactor this (`Ctrl-Shift-R`)
+
+Context menu appears if property `Localizable` is set to true for the project
+
+## Patterns catalog
+
+Allows us to easily implement our own quick fixes
+
+Download pattern catalog from resharper website to learn how to use them
+
+## XML Support
+
+Can use quick fixes to replace a tag name to change opening and closing tags.
+
+Convert nested element to attribute and vice versa
+
+## WPF, Silverlight & XAML Support
+
+All XML fixes work for XAML as well
+
+Can change formatting so each attribute has its own line (advantage from source control point of view)
+
+## MSBuild & Nant Support
+
+Can use:
+* View File Structure to navigate through file
+* Go To Declaration
+* Find Usages
+* Go to member to find the compile target
+* Rename 
+* etc
+
+One minor limitation is that Resharper needs file extension to be .csproj (or .vbproj) for those to work
+
+## ASP.NET/ASP.NET MVC Support
+
+Can go to JavaScript and/or CSS files from .aspx files
+
+Quick fix can add missing attributes to HTML. Adds missing width and height to image by reading the src metadata and using those dimensions.
+
+Resharper tells us when we have missing views.
+
+## JavaScript and CSS Support
+
+Color values are underlined
+Quick fix lets us choose color from a color palette
+Get IntelliSense on CSS properties and values
+Validate value of properties
+When assigning a class to an HTML element, offers classes defined in our CSS files
+Rename CSS classes from either CSS or HTML and updates across files.
+
+Can rename, find all ocurrences etc on JS files.
