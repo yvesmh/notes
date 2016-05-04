@@ -317,3 +317,247 @@ After It's deployed:
 	- SharePoint
 * Clustered SQL Servers
 * Clustered TFS App Tiers
+
+### TFS hardware capacity planning
+
+Install guide says:
+ * For less than 500 users
+ * Dual core, 2.13 GHz processor
+ * 4 GB of RAM
+ * 300 GB hard disk
+ * No SharePoint
+
+ Author's preference:
+ * Hyper-V
+ * Dual Processor
+ * Dynamic Memory
+ 	- Start at 1 GB
+ 	- Max at 8 GB
+ * 160 GB dynamically expanding hard disk
+ * Install SharePoint Foundation 2010
+
+### TFS pre-requisites
+
+* Install SharePoint Foundation 2010
+* Install SQL Server Reporting Services
+* This stuff is optional but don't be lazy
+* Install & configure them when you install TFS
+* It's a hassle to add later
+
+* Windows Server
+* .NET Framework 3.5
+* SQL Server
+* SharePoint
+
+### Installing TFS
+
+*Screaming-Fast Install Guide*
+
+* Create a fresh install of Windows 2008 R2 x64
+	- Go to Windows Update
+	- Install Microsoft Update
+	- Install all the Service Packs and patches
+* Install SQL Server 2008 R2 Standard
+	- Database Engine Services
+	- Full-Text Search
+	- Reporting Services
+	- Analysis Services
+* Go to Windows Update and patch SQL Server
+* Install Team Foundation Server 2012
+
+### Team Project & Team Project Collections
+
+Team Project is:
+* Bucket that contains everything related to a software development effort
+* Has a Name & Process Template
+
+Team Project Collection:
+* Collection of Team Projects
+* Gets its own database
+* Backup & Restore
+
+### Process Templates
+* Define the initial structure of a new Team Project
+* Microsoft Visual Studio Scrum 2.0
+* MSF for Agile Software Development 6.0
+* MSF for CMMI Process Improvement 6.0
+
+### Permissions & Security
+
+Security is administered at multiple levels:
+
+* Team Project Collection
+* Team Project
+* Within a Team Project
+	- Source Control
+	- Work Item Tracking
+* SQL Server Reporting Services
+* SharePoint
+
+### A simple backup plan for TFS
+
+If everything is on one box, backup is easy
+
+Create a Maintenance Plan in SQL Server
+
+Backup your SQL Server Reporting Services Encryption Key
+
+Best Practice is to move backups to somewhere else
+
+## Version Control Basics
+
+### TFS Version Control
+
+Transactional. Either all files succeed or all fail during check-ins.
+
+Shelvesets are temporary check-ins.
+
+### How to access Version Control
+
+* Visual Studio
+	- Source Control Explorer
+	- Solution Explorer
+* Web Access
+	- Read-only
+* Command-line
+	- TF.exe
+* Team Explorer everywhere
+	- Cross-platform
+	- Eclipse plugin
+	- Command-line
+
+### Workspaces
+
+Mapping between TFS and your computer
+
+Folders in TFS get mapped to folders on your computer
+
+Workspace types:
+* Server 
+* Local
+
+Workspace Permissions:
+* Private
+* Public
+* Limited Public
+
+File time
+* Check-in
+* Current
+
+Workspace mapping can sometimes get messed up
+
+If something isn't doing what you expect, *go to the workspace editor* 
+
+Workspace Editor located in Source Control Explorer. May be hidden on small screens if the team explorer is docked to the right.
+
+### Workspaces: Server vs Local
+
+Server
+* TFS tracks the state of your workspace
+* Really likes network connectivity
+* If your workspace is huge, use this
+* Compatible with Visual Studio 2010 and earlier
+
+Local
+* Visual Studio 2012+
+* Works nicely offline
+* You'll probably want this unless:
+	- Your workspace is huge
+	- You're a control freak
+
+
+### Configure Version Control for a New Project
+
+Create a folder off of the root (main or trunk or whatever)
+
+Never add any files to the root (in case you ever want to branch)
+
+### Keep it simple
+
+If you can't do a "Get Latest" then compile and then run unit tests... you're doing something wrong.
+
+* Workspace mappings should be simple
+* No crazy copying of DLLs or config around
+* Does it take you hours every day to get the app running?
+* Does it take new employees a couple days to get the app running?
+* Constant problems with missing DLLs?
+
+
+### Version Control Operations
+
+* Pending changes are batched.
+	- Until you check-in, it only exists on your machine (except labels)
+* Check-ins become a changeset
+	- Changeset number
+	- Can be associated to a work item
+* Change types:
+	- Add
+	- Edit
+	- Rename
+	- Delete / Undelete
+	- Branch / Merge
+
+## Version Control beyond the basics
+
+### Local Workspace: Offline Features
+
+Things you can do offline:
+* Add
+* Edit
+* Rename
+* Delete
+* Undo
+* Compare
+
+You can't do offline check-in
+
+### Free yourself from the read-only bit
+
+* Local workspaces don't use the read-only bit
+* Pending changes window is now smarter
+* Included Changes
+* Excluded Changes
+* Detected Changes
+
+### Locks
+
+Check-in Lock
+* Anyone can edit locally
+* Can't check-in until you check in or the lock is released
+
+Check-out Lock
+* No one can modify the file (aka "pend a change")
+* Local workspaces makes this unenforceable
+* Not available if "Asynchronous Checkout" is enabled
+
+Can be overridden if you have the "UnlockOther" permission
+
+### Shelving and Shelvesets
+
+Temporary chec-ins
+
+No one sees it unless they look for it
+
+Used for:
+* Code Reviews
+* Gated Check-in builds
+* My Work's Suspend & Resume
+* Sharing your work with someone else
+* Backing up your work
+
+To unshelf:
+First go to Source Control Explorer -> Choose something and then click on File -> source control -> find -> find shelvesets
+
+### Branching & Merging
+
+Branch = Work on multiple versions of a similar code base simultaneously
+
+Merge = Move changes between these versions.
+
+Best practices:
+* Merges are difficult
+*Don't branch unless you have to
+* Understand what a "release" means
+
+http://vsarbranchingguide.codeplex.com
