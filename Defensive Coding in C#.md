@@ -124,3 +124,75 @@ Consistent parameter ordering:
 
 Fail Fast technique causes code to fail immediately when it receives something invalid
 
+## Automated Code Testing
+
+### Intro
+
+* Arrange
+* Act
+* Assert
+
+Automated code testing must be:
+
+* Structured
+* Self-documented
+* Automatic
+* Repeatable
+* Protects your code across time and space
+
+Visual Studio (as of 2012) comes with MSTest, but also supports NUnit and other frameworks
+
+
+### "I don't have time to test"
+
+Unit tests saves time, saves clicking through UI screens to get to code.
+
+Lets you find bugs faster
+
+Refactor/ Add Safely
+
+Enhance your value
+
+Minitmize Interruptions
+
+### Code First vs. Test First
+
+Code first - write code based on the requirements and then write the tests
+
+Test first - write tests based on the requirements and then write the code that makes the tests pass
+
+### Defining Unit Test Cases
+
+Test for:
+* Valid inputs
+* Invalid inputs
+* Each guard clause
+* Assumptions
+
+Everytime there's a bug that managed to get past unit tests, write a new unit test for it.
+
+## Defending your methods part 3: Returning predictable results
+
+### Method Results
+
+Garbage in / Garbage Out
+
+Create OperationResult class for returning multiple values
+
+Can return:
+
+* Value
+* Throw Exception
+* Multiple value
+* Null
+
+Which one to choose depends on context
+
+### Returning Null
+
+A method that returns a value type, could return a nullable type.
+
+
+
+
+
