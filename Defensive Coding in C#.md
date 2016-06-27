@@ -192,7 +192,48 @@ Which one to choose depends on context
 
 A method that returns a value type, could return a nullable type.
 
+## Defending Your Code Constructs
+
+### Introduction
+
+* Best Practices
+* Clarity of Intent
+* Predictability
+
+### Local variable declaration
+
+Local variables should be declared closer to where they are needed.
+
+Use clear naming
+
+Where possible, initialize variables where they are declared.
+
+`var` keyword, use it:
+* if the type is already in the right-hand side
+* when dealing with complex return types
+
+### If Statements
+
+* Use Braces
+* If not using braces, put the code in 1 line.
+* Consider whether an else clause is needed.
+* Think Positive - it's easier for readability to define the condition as a positive.
 
 
+### Switch statements
 
+* Consider the order
+* Always have a default case to make it more predictable
+* The code in each statement should be a simple action
 
+### Enums
+
+Enums should be used whenever you have a discrete set of values
+
+Enums should not be nested within a class
+
+### Casting
+
+Cast Carefully
+
+Check value first before casting: use the `as / if ` operators
