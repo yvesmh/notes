@@ -237,3 +237,68 @@ Enums should not be nested within a class
 Cast Carefully
 
 Check value first before casting: use the `as / if ` operators
+
+## Asserts, Errors, and Exceptions
+
+### Asserts
+
+Assertions are warnings to the developer, a function that complains at runtime if an asserted assumption isn't true.
+
+`Debug.Assert()`
+
+If those conditions are not met, the program aborts and breaks into the debugger in that line of code.
+
+Asserts are only executed in Debug Mode, not Release mode.
+
+### Anticipated Errors
+
+* **Invalid User Entry** - Use appropriate controls that limit input, use built in data validation, write a validation method, validate with guard clauses, proceed with a good default value
+* **Invalid or Missing Data** - Validate incoming data, proceed without the value, display a message to the user.
+* **Code Construct Issues (eg switch statements without all cases)** - Proceed with a default operation, ignore the issue, log it and display a message to the user.
+* **System Issues** - Try again, proceed with an alternate operation, ignore the issue if it is not critical.
+
+Notify the user only when necessary
+
+### Unexpected Exceptions and a Global Exception Handler
+
+Global exception in windows forms application:
+
+```cs
+// For UI thread exceptions
+Application.ThreadException += new ThreadExceptionEventHandler(GlobalExceptionHandler);
+
+//Force all Windows forms errors to go through our handler
+Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+
+//For non-UI thread exceptions
+AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
+
+// App run
+
+static void GlobalExceptionHandler(object sender, EventArgs args)
+{
+    MessageBox.Show("There was a problem with this application. Please contact support");
+    System.Windows.Forms.Application.Exit();
+}
+```
+
+Do not use global exception handler for anticipated exceptions.
+
+Handle locally in time (right after thrown) and DO SOMETHING (don't just catch and leave the block empty)
+
+Catch Specific Exceptions
+
+To propagate an exception, do not rethrow the caught exception, since the call stack will be lost.
+
+```cs
+try
+{
+    //do something
+}
+catch (InvalidOperationException ex)
+{
+    // throw ex; <- don't do this
+    throw; // <- do this
+}
+```
+
